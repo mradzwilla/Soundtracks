@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "postinstall": "cd client && yarn install"
+  },
   "name": "SoundtrackApp",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.16.2"
+  }
 }

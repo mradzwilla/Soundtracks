@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import axios from 'axios'
+import GenreSelector from './GenreSelector'
+import axios from 'axios';
+
 export default class HelloWorld extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
@@ -24,23 +26,41 @@ export default class HelloWorld extends React.Component {
   };
 
   _getMovie(){
-    axios.get('https://api.themoviedb.org/3/movie/550?api_key=3f520052f9edf70597f2da6b1177e7bf')
+    //Poster path http://image.tmdb.org/t/p/w500/
+    var url = 'https://api.themoviedb.org/3/movie/550/similar?api_key=3f520052f9edf70597f2da6b1177e7bf&language=en-US&page=1'
+    var self = this
+    // var url = 'https://api.themoviedb.org/3/movie/550?api_key=3f520052f9edf70597f2da6b1177e7bf'
+    axios.get(url)
       .then(function(response){
-        console.log(response)
         console.log(response.data); // ex.: { user: 'Your User'}
         console.log(response.status); // ex.: 200
+        //Results are paginated so anything above 20 will fail. Would be cool to build on this
+        // var maxResults = response.data.total_results
+      
+        var index = Math.floor(Math.random() * 20)
+        var movie = response.data.results[index]
+        self.setState({ movieTitle:movie.original_title,
+                        movieDescription: movie.overview,
+                        moviePoster: movie.poster_path,
+                        movieBackdrop: movie.backdrop_path
+                      })
       })
 
   }
   componentWillMount(){
     this._getMovie()
   };
+
   render() {
     return (
       <div>
         <h3>
-          Hello, {this.state.name}!
+          The movie is {this.state.movieTitle}.
         </h3>
+        <p style={{fontSize:12}}>
+          {this.state.movieDescription}
+        </p>
+        <GenreSelector/>
         <hr />
         <form >
           <label htmlFor="name">

@@ -5,6 +5,8 @@
   "name": "SoundtrackApp",
   "private": true,
   "dependencies": {
-    "axios": "^0.16.2"
+    "axios": "^0.16.2",
+    "webpack": "^3.0.0",
+    "webpack-manifest-plugin": "^1.1.0"
   }
 }

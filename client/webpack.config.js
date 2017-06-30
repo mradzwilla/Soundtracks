@@ -36,6 +36,9 @@ const config = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+        jquery: "jquery/src/jquery"
+    }
   },
 
   plugins: [

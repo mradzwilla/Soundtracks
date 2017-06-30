@@ -1889,6 +1889,10 @@ nan@^2.3.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
+napster@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/napster/-/napster-0.0.0.tgz#f26a58a9db7277f3e9a346309c3fb53599a3335c"
+
 net@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/net/-/net-1.0.2.tgz#d1757ec9a7fb2371d83cf4755ce3e27e10829388"

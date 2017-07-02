@@ -37,33 +37,37 @@ export default class GenreSelector extends React.Component {
   		var url = 'https://api.themoviedb.org/3/discover/movie?api_key=3f520052f9edf70597f2da6b1177e7bf&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page='+pageOffset+'&with_genres='+genreID
   		var self = this
 
-      axios.get('/playlist.json')
-        .then(function(response){
-          console.log(response.data)
-          console.log('My API above here')
-        })
-  		axios.get(url)
-  			.then(function(response){
-  				console.log(response.data); // ex.: { user: 'Your User'}
-        		console.log(response.status); // ex.: 200
+      axios.get('/playlist', {
+        params: {
+          "genre": genreID
+        }
+      })
+      .then(function(response){
+        console.log(response.data)
+        console.log('My API above here')
+      })
+  		// axios.get(url)
+  		// 	.then(function(response){
+  		// 		console.log(response.data); // ex.: { user: 'Your User'}
+    //     		console.log(response.status); // ex.: 200
 
-        		//Add movies to array
-        		var arrayOffset = Math.floor(Math.random() * 15)
-        		var moviesOptions = []
-        		var i;
+    //     		//Add movies to array
+    //     		var arrayOffset = Math.floor(Math.random() * 15)
+    //     		var moviesOptions = []
+    //     		var i;
 
-        		for (i=0;i<5;i++){
-        			var movie = {
-        				title: response.data.results[i].original_title,
-        				poster: response.data.results[i].poster_path,
-        				descritpion: response.data.results[i].overview,
-        			}
-        			moviesOptions.push(movie)
-        		}
-        		console.log(moviesOptions)
-        		self.setState({moviesOptions})
-        		console.log(self.state)
-  			})
+    //     		for (i=0;i<5;i++){
+    //     			var movie = {
+    //     				title: response.data.results[i].original_title,
+    //     				poster: response.data.results[i].poster_path,
+    //     				descritpion: response.data.results[i].overview,
+    //     			}
+    //     			moviesOptions.push(movie)
+    //     		}
+    //     		console.log(moviesOptions)
+    //     		self.setState({moviesOptions})
+    //     		console.log(self.state)
+  		// 	})
   	};
   	render(){
   		if (this.state.genre == "none"){

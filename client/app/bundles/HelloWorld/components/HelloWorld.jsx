@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import GenreSelector from './GenreSelector'
 import axios from 'axios';
-window.jQuery = window.$ = require('jquery');
-import Napster from 'napster'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {

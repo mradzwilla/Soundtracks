@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import Napster from 'napster';
+import NapsterPlayer from './NapsterPlayer';
 
 //The endpoint below provides the id's for the TMDB genres
 //https://api.themoviedb.org/3/genre/movie/list?api_key=3f520052f9edf70597f2da6b1177e7bf&language=en-US
 export default class GenreSelector extends React.Component {
 	constructor(props, _railsContext) {
 	    super(props);
-		this.state = { genre: "none" };
+		  this.state = { genre: "none" };
 	    // How to set initial state in ES6 class syntax
 	    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
   		this._genreSelected.bind(this)
@@ -95,9 +97,7 @@ export default class GenreSelector extends React.Component {
 	  		)
   		} else {
   			return(
-	  			<div>
-	  				Load movie selector component here
-	  			</div>
+          <NapsterPlayer/>
 	  		)
   		}
   	}

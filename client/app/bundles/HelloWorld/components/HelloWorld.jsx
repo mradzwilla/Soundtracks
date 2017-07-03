@@ -47,8 +47,10 @@ export default class HelloWorld extends React.Component {
       })
 
   }
+
   componentWillMount(){
     this._getMovie()
+    console.log(this.props)
   };
 
   render() {

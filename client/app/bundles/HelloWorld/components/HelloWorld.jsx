@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import GenreSelector from './GenreSelector'
+import AuthenticationComponent from './AuthenticationComponent'
 import axios from 'axios';
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
+    // name: PropTypes.string.isRequired, // this is passed from the Rails view
   };
 
   /**
@@ -17,13 +18,14 @@ export default class HelloWorld extends React.Component {
 
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = { name: this.props.name };
+    this.state = { access_token: this.props.access_token,
+                    refresh_token: this.props.refresh_token };
     this._getMovie.bind(this)
   }
 
-  updateName = (name) => {
-    this.setState({ name });
-  };
+  // updateName = (name) => {
+  //   this.setState({ name });
+  // };
 
   _getMovie(){
     //Poster path http://image.tmdb.org/t/p/w500/
@@ -50,32 +52,26 @@ export default class HelloWorld extends React.Component {
 
   componentWillMount(){
     this._getMovie()
-    console.log(this.props)
   };
 
   render() {
-    return (
-      <div>
-        <h3>
-          The movie is {this.state.movieTitle}.
-        </h3>
-        <p style={{fontSize:12}}>
-          {this.state.movieDescription}
-        </p>
-        <GenreSelector/>
-        <hr />
-        <form >
-          <label htmlFor="name">
-            Say hello to:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.updateName(e.target.value)}
-          />
-        </form>
-      </div>
-    );
+    if (this.props.access_token && this.props.refresh_token){
+      return (
+        <div>
+          <h3>
+            The movie is {this.state.movieTitle}.
+          </h3>
+          <p style={{fontSize:12}}>
+            {this.state.movieDescription}
+          </p>
+          <GenreSelector access_token={this.state.access_token} refresh_token={this.state.refresh_token} />
+          <hr />
+        </div>
+      );
+    } else {
+      return (
+        <AuthenticationComponent/>
+      )
+    }
   }
 }

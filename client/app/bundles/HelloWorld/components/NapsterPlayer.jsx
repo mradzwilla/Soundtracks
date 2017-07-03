@@ -12,48 +12,40 @@ export default class NapsterPlayer extends React.Component {
 	};
 
 	componentWillMount(){
-		//There needs to be backend auth here to get oauth access tokens
+
+		// Napster.player.on('ready', function(e) {
+		//     Napster.player.auth();
+		// })
+		// console.log("End of Napster")
+	};
+
+	componentDidMount(){
+		//TODO: Need to add nested iframe for Napster player to find
+		var playerContainer = ReactDOM.findDOMNode(this.refs.placeholder);
 		Napster.init({
   			consumerKey: "OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4"
+  			// player: 
 		});
+		Napster.member.set({
+			accessToken: this.props.access_token,
+			refreshToken: this.props.refresh_token
+		});
+		console.log('NAPSTER')
+		console.log(this.props)
 	};
 
-	_authUser(){
-	    // window.open("https://api.napster.com/oauth/authorize?client_id=OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4&redirect_uri=http://www.google.com&response_type=code")
-	};
-
-	_login() {
-
-	const napsterAPI = 'https://api.napster.com';
-	const APIKEY = 'OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4';
-	const oauthURL = `${napsterAPI}/oauth/authorize?client_id=${APIKEY}&response_type=code`;
-
-	const REDIRECT_URI = 'http://localhost:3000/authentication';
-	const width = 700;
-	const height = 400;
-	const left = (screen.width / 2) - (width / 2);
-	const top = (screen.height / 2) - (height / 2);
-
-	window.addEventListener('message',(event) => {
-    var hash = JSON.parse(event.data);
-    console.log(hash)
-  }, false);
- 
-
-	window.open(
-  	`${oauthURL}&redirect_uri=${REDIRECT_URI}`,
-  	'_parent',
-    `menubar=no,location=no,resizable=no,scrollbars=no,status=no,width=${width},height=${height},top=${top}, left=${left}`
-  );
-}
-	componentDidMount(){
-		var playerContainer = ReactDOM.findDOMNode(this.refs.placeholder);
-		this._login()
-	};
+	iframe() {
+        return {
+            __html: this.props.iframe
+        }
+    };
 
 	render(){
 		return(
+			<div>
 			<div ref="placeholder" />
+       		<Iframe src="" height={100} width={100} id="player-frame"/>
+        	</div>
 		)
 	}
 }

@@ -5,7 +5,5 @@ import NapsterPlayer from '../components/NapsterPlayer';
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
-  HelloWorld,
-  GenreSelector,
-  NapsterPlayer
+  HelloWorld
 });

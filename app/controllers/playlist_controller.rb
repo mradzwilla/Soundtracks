@@ -39,9 +39,6 @@ require 'uri'
 				end
 			end
 		end
-		puts ENV['NAPSTER_KEY']
-		puts "Napster resp above"
-
 
 		respond_to do |format|
       		format.json { render json: @movie_response }

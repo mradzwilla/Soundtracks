@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Napster from 'napster';
 import NapsterPlayer from './NapsterPlayer';
 
 //The endpoint below provides the id's for the TMDB genres
@@ -8,15 +7,21 @@ import NapsterPlayer from './NapsterPlayer';
 export default class GenreSelector extends React.Component {
 	constructor(props, _railsContext) {
 	    super(props);
-		  this.state = { genre: "none" };
+		  this.state = {  access_token: this.props.access_token, 
+                      refresh_token: this.props.refresh_token,
+                      genre: "none"
+                    };
 	    // How to set initial state in ES6 class syntax
 	    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
   		this._genreSelected.bind(this)
   		this._getMoviesFromGenre.bind(this)
   	};
   	componentWillMount(){
-  		this.setState({})
   	}
+    componentDidMount(){
+      console.log('Selector state')
+      console.log(this.state)
+    }
   	_genreSelected(selection){
   		console.log(selection)
   		var genreDictionary = {
@@ -48,28 +53,6 @@ export default class GenreSelector extends React.Component {
         console.log(response.data)
         console.log('My API above here')
       })
-  		// axios.get(url)
-  		// 	.then(function(response){
-  		// 		console.log(response.data); // ex.: { user: 'Your User'}
-    //     		console.log(response.status); // ex.: 200
-
-    //     		//Add movies to array
-    //     		var arrayOffset = Math.floor(Math.random() * 15)
-    //     		var moviesOptions = []
-    //     		var i;
-
-    //     		for (i=0;i<5;i++){
-    //     			var movie = {
-    //     				title: response.data.results[i].original_title,
-    //     				poster: response.data.results[i].poster_path,
-    //     				descritpion: response.data.results[i].overview,
-    //     			}
-    //     			moviesOptions.push(movie)
-    //     		}
-    //     		console.log(moviesOptions)
-    //     		self.setState({moviesOptions})
-    //     		console.log(self.state)
-  		// 	})
   	};
   	render(){
   		if (this.state.genre == "none"){
@@ -97,7 +80,7 @@ export default class GenreSelector extends React.Component {
 	  		)
   		} else {
   			return(
-          <NapsterPlayer/>
+          <NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token}/>
 	  		)
   		}
   	}

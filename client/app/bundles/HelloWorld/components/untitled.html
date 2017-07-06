@@ -1,0 +1,29 @@
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"> import napster.js</script>
+</head>
+<body>
+Napster Test
+	<iframe id="player-frame"></iframe>
+</body>
+<footer>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			Napster.init({
+			  consumerKey: 'OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4'
+			});
+			Napster.player.on('ready', function(e) {
+			    Napster.member.set({accessToken: 'oauth access token'}); // If not set earlier
+			    Napster.player.auth();
+			    Napster.player.play('Tra.5156528');
+
+			})
+			Napster.member.set({
+			  accessToken: 'NTM1MGI1MWYtM2E5ZS00NTNjLWI2ZWItZGM2MGY1NDZlMzMy',
+			  refreshToken: '4fd2aa2e-c6b4-4625-b687-496152554d4c'
+			});
+			Napster.player.play('Tra.5156528');
+
+		})
+	</script>
+</footer>

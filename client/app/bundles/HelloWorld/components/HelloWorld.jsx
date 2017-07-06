@@ -35,7 +35,7 @@ export default class HelloWorld extends React.Component {
     axios.get(url)
       .then(function(response){
         console.log(response.data); // ex.: { user: 'Your User'}
-        console.log(response.status); // ex.: 200
+        //console.log(response.status); // ex.: 200
         //Results are paginated so anything above 20 will fail. Would be cool to build on this
         // var maxResults = response.data.total_results
       
@@ -53,7 +53,9 @@ export default class HelloWorld extends React.Component {
   componentWillMount(){
     this._getMovie()
   };
-
+  componentDidMount(){
+    // console.log(this.props)
+  }
   render() {
     if (this.props.access_token && this.props.refresh_token){
       return (

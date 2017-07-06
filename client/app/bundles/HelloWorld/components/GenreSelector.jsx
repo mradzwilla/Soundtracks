@@ -19,11 +19,10 @@ export default class GenreSelector extends React.Component {
   	componentWillMount(){
   	}
     componentDidMount(){
-      console.log('Selector state')
-      console.log(this.state)
+
     }
   	_genreSelected(selection){
-  		console.log(selection)
+  		// console.log(selection)
   		var genreDictionary = {
   			comedy: 35,
   			drama: 18,
@@ -50,8 +49,8 @@ export default class GenreSelector extends React.Component {
         }
       })
       .then(function(response){
-        console.log(response.data)
-        console.log('My API above here')
+        // console.log(response.data)
+        // console.log('My API above here')
       })
   	};
   	render(){

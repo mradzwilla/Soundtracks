@@ -11,6 +11,7 @@
     "client/node_modules"
   ],
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.3.2",
@@ -25,10 +26,10 @@
     "imports-loader": "^0.7.1",
     "jquery": "^3.2.1",
     "js-yaml": "^3.8.2",
-    "napster": "^0.0.0",
     "net": "^1.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-frame-component": "^1.1.0",
     "react-on-rails": "8.0.0",
     "tls": "^0.0.1",
     "webpack": "^2.3.3",

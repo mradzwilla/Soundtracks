@@ -3,6 +3,7 @@ import React from 'react';
 import GenreSelector from './GenreSelector'
 import AuthenticationComponent from './AuthenticationComponent'
 import axios from 'axios';
+import flashDetect from 'flashdetect'
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -50,11 +51,28 @@ export default class HelloWorld extends React.Component {
 
   }
 
+  // _checkFlash(){
+  //   if (flashDetect.getFlashVersion() > 0){
+  //     return true
+  //   } else{
+  //     return false
+  //   }
+  // }
+
   componentWillMount(){
     this._getMovie()
+
+  };
+
+  _checkFlash(){
+      if (flashDetect.getFlashVersion() > 0){
+        return true
+      } else{
+        return false
+      }
   };
   componentDidMount(){
-    // console.log(this.props)
+        console.log(this.state)
   }
   render() {
     if (this.props.access_token && this.props.refresh_token){

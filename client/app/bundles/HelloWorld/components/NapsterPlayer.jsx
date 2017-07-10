@@ -1,24 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
-// import 'napster';
-import Frame from 'react-frame-component';
+import 'napster';
+// import Frame from 'react-frame-component';
+import flashDetect from 'flashdetect'
 
 export default class NapsterPlayer extends React.Component {
 	constructor(props, _railsContext) {
     	super(props);
+    	// this.state = {flash: false}
     	this.getParameters.bind(this)
 	};
 	shouldComponentUpdate(){
 		return false
 	}
 	componentWillMount(){
-
+		var flashState = this._checkFlash() ? true : false;
+		console.log(flashState)
+    	this.setState({flash: flashState})
 		// Napster.player.on('ready', function(e) {
 		//     Napster.player.auth();
 		// })
 		// console.log("End of Napster")
 	};
+
+	_checkFlash(){
+	    if (flashDetect.getFlashVersion() > 0){
+	      return true
+	    } else{
+	      return false
+	    }
+	};
+
 	getParameters() {
 	        var query = window.location.search.substring(1);
 	        var parameters = {};
@@ -31,40 +44,35 @@ export default class NapsterPlayer extends React.Component {
 	        return parameters;
 	      }
 	componentDidMount(){
-		// var $playerContainer = ReactDOM.findDOMNode(this.refs.player-frame);
-		// var $playerFrame = <iframe id="player-frame" width={100} height={100}/>
-		// console.log($playerFrame)
-		// $playerContainer.append($playerFrame)
 		var accessToken = this.props.access_token
 		var refreshToken = this.props.refresh_token
+		var API_KEY = "OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4"
 
-		Napster.init({ 
-			consumerKey: 'OWIxMjhlY2MtOTA3Yi00NWJiLThiYTktODc3OTNiYTQ4MGU4'
-		});
-       	Napster.member.set({
-				accessToken: accessToken,
-				refreshToken: refreshToken
-		});
-       	Napster.player.auth();
-      
+        var currentTrack;
+        Napster.init({ consumerKey: API_KEY});
+
         Napster.player.on('ready', function(e) {
-			Napster.player.play('Tra.5156528');
-		})
+	        var params = {	accessToken: accessToken,
+	          				refreshToken: refreshToken}
+	        if (params.accessToken) {
+	            Napster.member.set(params);
+	        }
+        	Napster.player.play('Tra.5156528');
+      	});
 
-    };
-
-	iframe() {
-        return {
-            __html: '<iframe src="about:blank">Error</iframe>'
-        }
     };
 
 	render(){
-		//Currently the 'player-frame' is added to the page in the Rails template
-		return(
-			<div>
-            	
-            </div>
-		)
+		if (this.state.flash == true){
+			return(
+				<div> 	Flash stuff
+	            </div>
+			)
+		} else {
+			return(
+				<div> Pleaseokokokokole flash
+	            </div>
+			)
+		}
 	}
 }

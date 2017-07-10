@@ -23,8 +23,10 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
-
+  config.action_dispatch.show_exceptions = true
+  config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+  }
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.perform_caching = false

@@ -1305,6 +1305,10 @@ find-up@^1.0.0:
     path-exists "^2.0.0"
     pinkie-promise "^2.0.0"
 
+flashdetect@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/flashdetect/-/flashdetect-1.0.0.tgz#99e7e5494ca2913b025d9c7901ebd2bfb38254cc"
+
 follow-redirects@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.4.tgz#355e8f4d16876b43f577b0d5ce2668b9723214ea"

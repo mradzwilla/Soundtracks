@@ -6,8 +6,8 @@ class AuthenticationController < ApplicationController
 	def index
 		puts "Auth CONTROLLER"
 		puts params.to_json
-		#@auth_code = params["code"]
-		@auth_code = "Y2Y0ZTgwMTMtMmY3OS00ZDYzLTlmMDktMGZjNmI4ZTkyNDJi"
+		@auth_code = params["code"]
+		# @auth_code = "OTFhMWJlNTItNDVhMC00YzlhLWIzY2EtZmMxNTQ2MTdiYTkz"
 		puts @auth_code
 		redirect_to index_path(code: @auth_code)
 	end

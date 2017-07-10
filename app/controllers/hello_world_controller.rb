@@ -5,8 +5,6 @@ class HelloWorldController < ApplicationController
   def index
   	@params = params
   	@auth_code = @params['code']
-  	puts params.to_json
-  	puts "INDEX"
 
   	if !@auth_code.blank?
     	@response = HTTParty.post("https://api.napster.com/oauth/access_token",
@@ -19,6 +17,8 @@ class HelloWorldController < ApplicationController
 					})
     	@access_token = @response['access_token']
     	@refresh_token = @response['refresh_token']
+    	puts @response
+    	puts 'lololol'
     	@hello_world_props = { access_token: @access_token, refresh_token: @refresh_token }
 	else
 		@hello_world_props = {}

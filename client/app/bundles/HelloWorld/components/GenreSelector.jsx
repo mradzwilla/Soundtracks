@@ -49,8 +49,8 @@ export default class GenreSelector extends React.Component {
         }
       })
       .then(function(response){
-        // console.log(response.data)
-        // console.log('My API above here')
+        console.log(response.data)
+        console.log('My API above here')
       })
   	};
   	render(){

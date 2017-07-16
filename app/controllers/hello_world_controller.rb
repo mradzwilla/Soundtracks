@@ -17,8 +17,7 @@ class HelloWorldController < ApplicationController
 					})
     	@access_token = @response['access_token']
     	@refresh_token = @response['refresh_token']
-    	puts @response
-    	puts 'lololol'
+
     	@hello_world_props = { access_token: @access_token, refresh_token: @refresh_token }
 	else
 		@hello_world_props = {}

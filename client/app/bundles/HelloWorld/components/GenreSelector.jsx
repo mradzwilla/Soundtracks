@@ -38,10 +38,10 @@ export default class GenreSelector extends React.Component {
   	_getMoviesFromGenre(id){
   		var genreID = id
   		var pageOffset = Math.floor(Math.random() * 10)
+      var self = this
   		//Assuming there will be at least 50 pages of results for each.
   		//TODO: Building additional error handling to increase max number
-  		var url = 'https://api.themoviedb.org/3/discover/movie?api_key=3f520052f9edf70597f2da6b1177e7bf&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page='+pageOffset+'&with_genres='+genreID
-  		var self = this
+  		// var url = 'https://api.themoviedb.org/3/discover/movie?api_key=3f520052f9edf70597f2da6b1177e7bf&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page='+pageOffset+'&with_genres='+genreID
 
       axios.get('/playlist', {
         params: {
@@ -51,6 +51,7 @@ export default class GenreSelector extends React.Component {
       .then(function(response){
         console.log(response.data)
         console.log('My API above here')
+        self.setState({playlistData: response.data})
       })
   	};
   	render(){
@@ -79,7 +80,7 @@ export default class GenreSelector extends React.Component {
 	  		)
   		} else {
   			return(
-          <NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token}/>
+          <NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token} playlistData={this.state.playlistData}/>
 	  		)
   		}
   	}

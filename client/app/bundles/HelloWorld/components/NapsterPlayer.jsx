@@ -5,6 +5,8 @@ import 'napster';
 // import Frame from 'react-frame-component';
 import flashDetect from 'flashdetect'
 
+//Code is messy right now. Now, Napster will always be ready to play when this mounts.
+//DO NOT USE Napster ready listener here
 export default class NapsterPlayer extends React.Component {
 	constructor(props, _railsContext) {
     	super(props);
@@ -15,9 +17,6 @@ export default class NapsterPlayer extends React.Component {
 	};
 
 	componentWillMount(){
-		var flashState = this._checkFlash() ? true : false;
-    	this.setState({flash: flashState})
-    	console.log(this.props)
 	};
 
 	componentDidMount(){
@@ -25,7 +24,7 @@ export default class NapsterPlayer extends React.Component {
 		var self = this
         var currentTrack;
 
-        Napster.init({ consumerKey: API_KEY});
+        // Napster.init({ consumerKey: API_KEY});
 		Napster.player.on('playevent', function(e) {
 		  console.log('Play event')
 		  console.log(e.data);
@@ -44,6 +43,7 @@ export default class NapsterPlayer extends React.Component {
 		  //Create setTimeout with playback song length?
 		});
     };
+
 	componentDidUpdate(prevProps, prevState){
 		console.log(this.props)
 	}
@@ -55,35 +55,19 @@ export default class NapsterPlayer extends React.Component {
     	var accessToken = this.props.access_token
 		var refreshToken = this.props.refresh_token
 
-	    Napster.player.on('ready', function(e) {
-	        var params = {	accessToken: accessToken,
-	          				refreshToken: refreshToken}
-	        if (params.accessToken) {
-	            Napster.member.set(params);
-	        }
+	    // Napster.player.on('ready', function(e) {
+	        // var params = {	accessToken: accessToken,
+	        //   				refreshToken: refreshToken}
+	        // if (params.accessToken) {
+	        //     Napster.member.set(params);
+	        // }
         	Napster.player.play(songID);
-	     });
+	     // });
     };
 
-	_checkFlash(){
-	    if (flashDetect.getFlashVersion() > 0){
-	      return true
-	    } else{
-	      return false
-	    }
-	};
-
 	render(){
-		if (this.state.flash == true){
 			return(
-				<div> 	Flash stuff
-	            </div>
+				<div />
 			)
-		} else {
-			return(
-				<div> Pleaseokokokokole flash
-	            </div>
-			)
-		}
 	}
 }

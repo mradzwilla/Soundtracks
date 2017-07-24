@@ -36,8 +36,7 @@ export default class MainComponent extends React.Component {
     // var url = 'https://api.themoviedb.org/3/movie/550?api_key=3f520052f9edf70597f2da6b1177e7bf'
     axios.get(url)
       .then(function(response){
-        console.log(response.data); // ex.: { user: 'Your User'}
-        //console.log(response.status); // ex.: 200
+        //console.log(response.data);
         //Results are paginated so anything above 20 will fail. Would be cool to build on this
         // var maxResults = response.data.total_results
       
@@ -56,7 +55,6 @@ export default class MainComponent extends React.Component {
   };
 
   componentDidMount(){
-    console.log(this.state)
     if (typeof this.state.access_token != 'undefined' && typeof this.state.refresh_token != 'undefined'){
       this._initializeNapster()
     }
@@ -104,25 +102,6 @@ export default class MainComponent extends React.Component {
         <GenreSelector access_token={this.state.access_token} refresh_token={this.state.refresh_token} />
       )
     }
-  }
-  // render() {
-  //   if (this.state.access_token && this.state.refresh_token){
-  //     return (
-  //       <div>
-  //         <h3>
-  //           The movie is {this.state.movieTitle}.
-  //         </h3>
-  //         <p style={{fontSize:12}}>
-  //           {this.state.movieDescription}
-  //         </p>
-  //         <GenreSelector access_token={this.state.access_token} refresh_token={this.state.refresh_token} />
-  //         <hr />
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <AuthenticationComponent/>
-  //     )
-  //   }
-  // }
+  };
+
 }

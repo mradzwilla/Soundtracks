@@ -67,7 +67,7 @@ export default class MainComponent extends React.Component {
       var refreshToken = this.state.refresh_token
 
       //Initializing will prompt user to enable Flash player
-      Napster.init({ consumerKey: API_KEY });
+      Napster.init({  consumerKey: API_KEY });
 
       // Napster.player.ready mainly checking Flash permissions
       if (Napster.player.ready == true){

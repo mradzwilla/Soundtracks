@@ -39,7 +39,7 @@ export default class CurrentTrackComponent extends React.Component {
  	};
  	var poster = 'https://image.tmdb.org/t/p/original/' + this.state.posterPath
 
-  	return(	<div style={backgroundImage}>
+  	return(	<div className='currentTrackContainer' style={backgroundImage}>
   				<h1>{this.state.movieTitle}</h1>
   				<p>{this.state.overview}</p>
   				<img src={poster}/>

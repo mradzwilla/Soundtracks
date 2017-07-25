@@ -23,6 +23,13 @@ export default class GenreSelector extends React.Component {
   	componentWillMount(){
   	}
     componentDidMount(){
+     var self = this
+     Napster.player.on('playevent', function(e) {
+        console.log(e.data);
+        if (e.data.code == 'PlayComplete'){
+          self._albumForward()
+        }
+      });
     }
 
   	_genreSelected(selection){

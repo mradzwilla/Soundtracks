@@ -15,7 +15,7 @@ require 'uri'
 
 		@genreID = params['genre']
 		#API will break if pageOffset starts at 0
-		@pageOffset = rand(1..5)
+		@pageOffset = rand(1..10)
 		puts @pageOffset
   # 		@TMDB_url = 'https://api.themoviedb.org/3/discover/movie?api_key='+ENV['TMDB_KEY']+'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page='+@pageOffset+'&with_genres='+@genreID
   # 		@movie_response = HTTParty.get(@TMDB_url)
@@ -55,14 +55,19 @@ def searchNapter(movies)
 
 		@title = movie['title']
 		@titleURI = URI.encode(@title)
-		@napster = HTTParty.get("http://api.napster.com/v2.2/search?apikey="+ENV['NAPSTER_KEY']+"&query="+@titleURI+"&type=album&per_type_limit=3")
+		#Can update this to 2.2 when Napster releases update of player
+		# v2.2 uses 'query' while v2.1 uses q
+		# @napster = HTTParty.get("http://api.napster.com/v2.2/search?apikey="+ENV['NAPSTER_KEY']+"&query="+@titleURI+"&type=album&per_type_limit=3")
+		@napster = HTTParty.get("http://api.napster.com/v2.1/search?apikey="+ENV['NAPSTER_KEY']+"&q="+@titleURI+"&type=album&limit=3&pretty=true")
 		puts @napster
 		if @napster["meta"]["returnedCount"] > 0
-			@napster["search"]["data"]["albums"].each do |album|
+			# @napster["search"]["data"]["albums"].each do |album| #v2.2 syntax
+			@napster["data"].each do |album|
 
 				begin 
 					# Limiting by genre would be nice but ends up being too restrictive since many soundtracks are missing this genre tag
 					# if album["links"]["genres"]["ids"].include? "g.246"
+					# should probably change string to 'motion picture soundtrack'
 					if album["name"].downcase.include? 'soundtrack'
 						#Add other info that needs to be added here
 						@response_object = { albumName: album["name"],

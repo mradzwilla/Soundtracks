@@ -31,8 +31,8 @@ export default class NapsterPlayer extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		console.log(this.props)
-		console.log('NapsterUPDATE')
+		// console.log(this.props)
+		// console.log('NapsterUPDATE')
 		this._getTrack()
 	}
 
@@ -47,10 +47,10 @@ export default class NapsterPlayer extends React.Component {
 		Napster.api.get(false, songURL, function(data) {
 			var allTracks = data.tracks
 			var randomIndex = Math.floor(Math.random()*allTracks.length)
-			console.log(allTracks)
-			console.log(randomIndex)
+			// console.log(allTracks)
+			// console.log(randomIndex)
 			var randomSong = allTracks[randomIndex];
-			console.log(randomSong)
+			// console.log(randomSong)
 			// Right now just play the first one until I figure out UI
 			var songID = randomSong.id
 			// var songID = allTracks[0]['id']

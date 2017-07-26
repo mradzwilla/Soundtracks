@@ -5,14 +5,27 @@
     font-family: HollywoodCapital;
     src: url(../fonts/hollywood_capital/HollywoodCapital.tff);
 }
-
+// @font-face {
+//     font-family: HollywoodCapitalHills;
+//     src: url(../fonts/hollywood_capital/HollywoodCapitalHills.tff);
+// }
 .body{
 	margin: 0;
 }
 
-.currentTrackContainer{
-	height: 200px;
+.mainContainer{
+	text-align: center;
 
+	h1{
+		font-size: 40px;
+		font-style: italic;
+		font-family: HollywoodCapital;
+	}
+}
+.currentTrackContainer, .playedTrackContainer{
+	height: 200px;
+}
+.currentTrackContainer{
 	h1{
 		font-size: 30px;
 		font-style: italic;

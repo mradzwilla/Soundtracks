@@ -42,7 +42,6 @@ export default class CurrentTrackComponent extends React.Component {
   	return(	<div className='currentTrackContainer' style={backgroundImage}>
   				<h1>{this.state.movieTitle}</h1>
   				<p>{this.state.overview}</p>
-  				<img src={poster}/>
   				<NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token} playlistData={this.state.playlistData}/>
   			</div>)
   }

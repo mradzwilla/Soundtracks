@@ -4,10 +4,6 @@ import GenreSelector from './GenreSelector'
 import AuthenticationComponent from './AuthenticationComponent'
 import axios from 'axios';
 import flashDetect from 'flashdetect'
-//Logic needs to be:
-//1. Render authenticate
-//2. Render if Flash is enabled
-//3. Render genre selector
 
 //REMEMBER: Napsters 'ready' will only fire once when first enabled. Don't listen with it
 export default class MainComponent extends React.Component {
@@ -99,7 +95,10 @@ export default class MainComponent extends React.Component {
       )
     } else {
       return (
+        <div className="mainContainer">
+        <h1>Cinetunes</h1>
         <GenreSelector access_token={this.state.access_token} refresh_token={this.state.refresh_token} />
+        </div>
       )
     }
   };

@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "react-bootstrap": "^0.31.1",
     "webpack": "^3.0.0",
     "webpack-manifest-plugin": "^1.1.0"
   }

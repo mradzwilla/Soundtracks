@@ -1900,6 +1900,9 @@ nan@^2.3.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
+"napster@file:./node_modules/napster":
+  version "0.0.0"
+
 net@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/net/-/net-1.0.2.tgz#d1757ec9a7fb2371d83cf4755ce3e27e10829388"
@@ -2220,10 +2223,6 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
-
-react-frame-component@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-frame-component/-/react-frame-component-1.1.0.tgz#c8b3ee6ff14a5a4ca4cefa5c9e0070bdc9deaea6"
 
 react-on-rails@8.0.0:
   version "8.0.0"

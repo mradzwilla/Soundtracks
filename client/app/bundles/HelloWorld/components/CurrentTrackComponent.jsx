@@ -39,10 +39,14 @@ export default class CurrentTrackComponent extends React.Component {
  	};
  	var poster = 'https://image.tmdb.org/t/p/original/' + this.state.posterPath
 
-  	return(	<div className='currentTrackContainer' style={backgroundImage}>
+  	return(	<div className='currentTrackContainer'>
+  				<img className="poster" src={poster}/>
+  				<div className='movieDescription'>
   				<h1>{this.state.movieTitle}</h1>
   				<p>{this.state.overview}</p>
   				<NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token} playlistData={this.state.playlistData}/>
-  			</div>)
+  				</div>
+  			</div>
+  			)
   }
 }

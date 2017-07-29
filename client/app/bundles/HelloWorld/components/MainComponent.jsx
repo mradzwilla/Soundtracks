@@ -3,7 +3,7 @@ import React from 'react';
 import GenreSelector from './GenreSelector'
 import AuthenticationComponent from './AuthenticationComponent'
 import axios from 'axios';
-import flashDetect from 'flashdetect'
+// import flashDetect from 'flashdetect'
 
 //REMEMBER: Napsters 'ready' will only fire once when first enabled. Don't listen with it
 export default class MainComponent extends React.Component {
@@ -91,11 +91,15 @@ export default class MainComponent extends React.Component {
       )
     } else if (this.state.napsterReady == false){
       return (
+        <div className="mainContainer">
+        <div className="background"></div>
         <div>Please enable Flash</div>
+        </div>
       )
     } else {
       return (
         <div className="mainContainer">
+        <div className="background"/>
         <h1>Cinetunes</h1>
         <GenreSelector access_token={this.state.access_token} refresh_token={this.state.refresh_token} />
         </div>

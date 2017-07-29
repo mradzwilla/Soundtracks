@@ -61,7 +61,6 @@ export default class CurrentTrackComponent extends React.Component {
   _getPosterStyle(palette){
     //Maps color palette to a CSS object
     var style = {
-
     }
     console.log("GET STYLE")
     console.log(this)
@@ -70,26 +69,35 @@ export default class CurrentTrackComponent extends React.Component {
 
     var backgroundRGB = palette.darkMuted
     style['backgroundColor'] = "rgb("+ backgroundRGB.join(',') +")"
+    style['color2'] = "rgb("+ palette.darkVibrant.join(',') +")"
+    style['color3'] = "rgb("+ palette.lightMuted.join(',') +")"
+    style['color4'] = "rgb("+ palette.lightVibrant.join(',') +")"
+    style['color5'] = "rgb("+ palette.muted.join(',') +")"
+    style['color6'] = "rgb("+ palette.vibrant.join(',') +")"
+
+    style['header'] = {
+      color: "rgb("+ palette.lightVibrant.join(',') +")",
+      textShadow: "2px 2px 0px " + style.color2
+    }
     console.log(style)
-    console.log(backgroundRGB)
-    console.log('fffuuuccckkk')
 
     }
     return style
 
   }
+//<img className="poster" src={poster}/>
 
   render(){
-  	// var backgroundImage = {
-   //    backgroundImage: "url(https://image.tmdb.org/t/p/original/" + this.state.backdropPath,
-   // 	};
+  	var backgroundImage = {
+      backgroundImage: "url(https://image.tmdb.org/t/p/original/" + this.state.backdropPath
+   	};
    	var poster = 'https://image.tmdb.org/t/p/original/' + this.state.posterPath
     var palette = this.state.posterPalette
-    var style = (this._getPosterStyle(palette))
-  	return(	<div className='currentTrackContainer' style={style}>
-  				<img className="poster" src={poster}/>
+    var style = this._getPosterStyle(palette)
+  	return(	<div className='currentTrackContainer' style={backgroundImage}>
+          <div className="overlay"/>
   				<div className='movieDescription'>
-  				<h1>{this.state.movieTitle}</h1>
+  				<h1 className="movieTitle" style={style.header}>{this.state.movieTitle}</h1>
   				<p>{this.state.overview}</p>
   				<NapsterPlayer access_token={this.state.access_token} refresh_token={this.state.refresh_token} playlistData={this.state.playlistData}/>
   				</div>

@@ -47,7 +47,7 @@ body{
 .currentTrackContainer{
 	$container-radius: 15px;
 
-	text-align: left;
+	text-align: center;
 	height: 300px;
 	max-width: 1100px;
 	margin: 0 auto;
@@ -92,7 +92,9 @@ body{
 	    position: relative;
 	}
 }
-
+.carouselDisplay{
+	position: relative;
+}
 .playedTrackContainer{
 	max-width: 1100px;
 }

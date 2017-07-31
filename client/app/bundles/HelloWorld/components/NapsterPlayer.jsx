@@ -2,18 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import 'napster';
+// Not using these. Need to remove them from project
 // import Frame from 'react-frame-component';
-import flashDetect from 'flashdetect'
+// import flashDetect from 'flashdetect'
 
-//Code is messy right now. Now, Napster will always be ready to play when this mounts.
+//Napster will always be ready to play when this mounts.
 //DO NOT USE Napster ready listener here
 export default class NapsterPlayer extends React.Component {
 	constructor(props, _railsContext) {
     	super(props);
     	this.state = {albumID: this.props.playlistData.albumID}
-    	// this.getParameters.bind(this)
-    	// this.componentDidMount.bind(this)
-    	// this._play.bind(this)
 	};
 
 	componentWillMount(){
@@ -21,7 +19,6 @@ export default class NapsterPlayer extends React.Component {
 
 	componentDidMount(){
 		this._getTrack()
-		//Create setTimeout with playback song length?
     };
 
 	componentWillReceiveProps(nextProps){
@@ -31,8 +28,6 @@ export default class NapsterPlayer extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		// console.log(this.props)
-		// console.log('NapsterUPDATE')
 		this._getTrack()
 	}
 
@@ -60,9 +55,6 @@ export default class NapsterPlayer extends React.Component {
     };
 
     _playSong(songID){
-    	var accessToken = this.props.access_token
-		var refreshToken = this.props.refresh_token
-
         Napster.player.play(songID);
     };
 

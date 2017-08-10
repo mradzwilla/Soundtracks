@@ -11,10 +11,14 @@ import 'napster';
 export default class NapsterPlayer extends React.Component {
 	constructor(props, _railsContext) {
     	super(props);
-    	this.state = {albumID: this.props.playlistData.albumID}
+    	this.state = {albumID: this.props.playlistData.albumID,
+    				  tracks: []
+    				}
+    	this.render.bind(this)
 	};
 
 	componentWillMount(){
+		// this._getTrack()
 	};
 
 	componentDidMount(){
@@ -23,12 +27,18 @@ export default class NapsterPlayer extends React.Component {
 
 	componentWillReceiveProps(nextProps){
 	    if (nextProps.playlistData !== this.props.playlistData) {
-	      	this.setState({  albumID: nextProps.playlistData.albumID })
+	      	this.setState({  albumID: nextProps.playlistData.albumID,
+	      					 tracks: []
+	      	})
 	    }
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		this._getTrack()
+		console.log(this.state.albumID)
+		console.log(prevState.albumID)
+		if (this.state.albumID != prevState.albumID){
+			this._getTrack()
+		}
 	}
 
     _getTrack(){
@@ -41,8 +51,9 @@ export default class NapsterPlayer extends React.Component {
 		var songURL = '/albums/'+albumID+'/tracks'
 		Napster.api.get(false, songURL, function(data) {
 			var allTracks = data.tracks
+			self.setState({tracks: allTracks})
 			var randomIndex = Math.floor(Math.random()*allTracks.length)
-			// console.log(allTracks)
+			console.log(allTracks)
 			// console.log(randomIndex)
 			var randomSong = allTracks[randomIndex];
 			// console.log(randomSong)
@@ -59,8 +70,16 @@ export default class NapsterPlayer extends React.Component {
     };
 
 	render(){
+			var tracks = this.state.tracks
+			if (tracks != 'undefined'){
+				var trackList = tracks.map((track) => 
+					<li>{track.name}</li>
+				)
+			} else {
+				var trackList = <li>empty</li>
+			}
 			return(
-				<div />
+				<ul>{trackList}</ul>
 			)
 	}
 }

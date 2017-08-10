@@ -93,7 +93,7 @@ export default class MainComponent extends React.Component {
       return (
         <div className="mainContainer">
         <div className="background"></div>
-        <div>Please enable Flash</div>
+        <div className="enableFlash">Please enable Flash. <a href="https://helpx.adobe.com/flash-player.html" target="_blank">Click here to find out how</a></div>
         </div>
       )
     } else {

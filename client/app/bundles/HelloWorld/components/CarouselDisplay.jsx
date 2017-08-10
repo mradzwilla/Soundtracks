@@ -14,11 +14,11 @@ export default class CarouselDisplay extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.playlistData !== this.props.playlistData) {
+    if (nextProps.posterPalette !== this.props.posterPalette) {
       this.setState({  playlistData: nextProps.playlistData,
-        			   currentDisplay: nextProps.overview,
-        			   posterPalette: nextProps.posterPalette 
-        			})
+        			         currentDisplay: nextProps.overview,
+        			           posterPalette: nextProps.posterPalette 
+        			      })
     }
   }
   componentDidMount(){

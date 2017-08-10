@@ -41,6 +41,25 @@ body{
 		font-family: HollywoodCapital;
 	}
 }
+.enableFlash{
+	display: inline-block;
+	position:absolute;
+  	top:50%;
+  	left:50%;
+  	transform:translate(-50%,-50%);
+  	padding: 30px;
+  	box-shadow: 1px 1px 2px #B3B1BC;
+	color: #fff;
+
+	background-color: rgba(00,00,00,.6);
+	border-radius: 5px;
+	font-family: 'Dosis', sans-serif;
+
+	a{
+		color: white;
+	}
+}
+
 .currentTrackContainer, .playedTrackContainer{
 	height: 200px;
 }

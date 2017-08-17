@@ -17,13 +17,11 @@ export default class CarouselDisplay extends React.Component {
     if (nextProps.posterPalette !== this.props.posterPalette) {
       this.setState({  playlistData: nextProps.playlistData,
         			         currentDisplay: nextProps.overview,
-        			           posterPalette: nextProps.posterPalette 
+        			         posterPalette: nextProps.posterPalette 
         			      })
     }
   }
   componentDidMount(){
-  	console.log('DID MOUNT')
-  	console.log(this)
   }
   _changeDisplayTo(display){
   	console.log(display)
@@ -31,8 +29,7 @@ export default class CarouselDisplay extends React.Component {
 
   _getPosterStyle(palette){
     //Maps color palette to a CSS object
-    var style = {
-    }
+    var style = new Object
     console.log("GET STYLE")
     console.log(this)
     console.log(palette)

@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import 'napster';
-// Not using these. Need to remove them from project
-// import Frame from 'react-frame-component';
-// import flashDetect from 'flashdetect'
+import ReactList from 'react-list';
 
 //Napster will always be ready to play when this mounts.
 //DO NOT USE Napster ready listener here
@@ -15,6 +13,7 @@ export default class NapsterPlayer extends React.Component {
     				  tracks: []
     				}
     	this.render.bind(this)
+    	this._renderItem.bind(this)
 	};
 
 	componentWillMount(){
@@ -51,15 +50,13 @@ export default class NapsterPlayer extends React.Component {
 		var songURL = '/albums/'+albumID+'/tracks'
 		Napster.api.get(false, songURL, function(data) {
 			var allTracks = data.tracks
-			self.setState({tracks: allTracks})
 			var randomIndex = Math.floor(Math.random()*allTracks.length)
-			console.log(allTracks)
-			// console.log(randomIndex)
 			var randomSong = allTracks[randomIndex];
-			// console.log(randomSong)
-			// Right now just play the first one until I figure out UI
 			var songID = randomSong.id
-			// var songID = allTracks[0]['id']
+
+			self.setState({tracks: allTracks,
+						   currentIndex: randomIndex
+						})
 			self._playSong(songID)
 		});
 		
@@ -69,17 +66,28 @@ export default class NapsterPlayer extends React.Component {
         Napster.player.play(songID);
     };
 
+    _renderItem(index, key) {
+    	return <div className="trackItem" key={key}>{this.state.tracks[index].name + 'YOLOLOL'}</div>;
+  	}
+
 	render(){
 			var tracks = this.state.tracks
 			if (tracks != 'undefined'){
-				var trackList = tracks.map((track) => 
-					<li>{track.name}</li>
-				)
+				return(
+					<div style={{overflow: 'auto', maxHeight: 120}}>
+			          <ReactList
+			          	initialIndex={this.state.currentIndex}
+			            itemRenderer={this._renderItem.bind(this)}
+			            length={tracks.length}
+			            type='uniform'
+			          />
+			        </div>
+		        )
 			} else {
-				var trackList = <li>empty</li>
+				return(
+				<div></div>
+				)
 			}
-			return(
-				<ul>{trackList}</ul>
-			)
+
 	}
 }

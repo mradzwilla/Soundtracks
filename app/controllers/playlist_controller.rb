@@ -72,13 +72,17 @@ def searchNapter(movies)
 					# should probably change string to 'motion picture soundtrack'
 					if album["name"].downcase.include? 'soundtrack'
 						#Add other info that needs to be added here
+						@trackDataURL = album['links']['tracks']['href'] + "?apikey=" +ENV['NAPSTER_KEY']
+						@trackData = HTTParty.get(@trackDataURL)
+	
 						@response_object = { albumName: album["name"],
 											 albumID: album['id'],
 											 movieName: @movie['original_title'],
 											 movieID: @movie['id'],
 											 movieBackdrop: @movie['backdrop_path'],
 											 moviePoster: @movie['poster_path'],
-											 movieDesc: @movie['overview']
+											 movieDesc: @movie['overview'],
+											 trackData: @trackData
 											}
 						@response << @response_object
 					break

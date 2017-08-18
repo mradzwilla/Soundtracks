@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import 'napster';
-import ReactList from 'react-list';
+
+//This component is only used to receive and manage audio controls and returns no display
+//Need to build in functions for pausing and fast-forward/rewinding
 
 //Napster will always be ready to play when this mounts.
 //DO NOT USE Napster ready listener here
 export default class NapsterPlayer extends React.Component {
 	constructor(props, _railsContext) {
     	super(props);
-    	this.state = {albumID: this.props.playlistData.albumID,
-    				  tracks: []
-    				}
+    	this.state = {trackID: this.props.trackID}
     	this.render.bind(this)
     	this._renderItem.bind(this)
 	};
@@ -21,22 +21,33 @@ export default class NapsterPlayer extends React.Component {
 	};
 
 	componentDidMount(){
-		this._getTrack()
+		console.log(this)
+		var trackID = this.state.trackID
+		this._playSong(trackID)
+
+		// console.log('componentDidMount')
+		// this._getTrack()
     };
 
 	componentWillReceiveProps(nextProps){
-	    if (nextProps.playlistData !== this.props.playlistData) {
-	      	this.setState({  albumID: nextProps.playlistData.albumID,
-	      					 tracks: []
-	      	})
-	    }
+	    // if (nextProps.playlistData !== this.props.playlistData) {
+	    //   	this.setState({  albumID: nextProps.playlistData.albumID,
+	    //   					 tracks: []
+	    //   	})
+	    // }
 	}
 
+	// shouldComponentUpdate(nextProps){
+	// 	if (nextProps.trackID != this.state.trackID){
+	// 		return true
+	// 	}
+	// }
+
 	componentDidUpdate(prevProps, prevState){
-		console.log(this.state.albumID)
-		console.log(prevState.albumID)
-		if (this.state.albumID != prevState.albumID){
-			this._getTrack()
+		// console.log(this.state.albumID)
+		// console.log(prevState.albumID)
+		if (this.state.trackID != prevState.trackID){
+			this._playSong(this.state.trackID)
 		}
 	}
 
@@ -71,23 +82,6 @@ export default class NapsterPlayer extends React.Component {
   	}
 
 	render(){
-			var tracks = this.state.tracks
-			if (tracks != 'undefined'){
-				return(
-					<div style={{overflow: 'auto', maxHeight: 120}}>
-			          <ReactList
-			          	initialIndex={this.state.currentIndex}
-			            itemRenderer={this._renderItem.bind(this)}
-			            length={tracks.length}
-			            type='uniform'
-			          />
-			        </div>
-		        )
-			} else {
-				return(
-				<div></div>
-				)
-			}
-
+		return (null);
 	}
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import NapsterPlayer from './NapsterPlayer';
+// import NapsterPlayer from './NapsterPlayer';
 import MovieOverview from './MovieOverview';
+import TrackListComponent from './TrackListComponent';
 
 export default class CarouselDisplay extends React.Component {
   constructor(props, _railsContext) {
@@ -16,7 +17,6 @@ export default class CarouselDisplay extends React.Component {
   componentWillReceiveProps(nextProps){
     if (nextProps.posterPalette !== this.props.posterPalette) {
       this.setState({  playlistData: nextProps.playlistData,
-        			         currentDisplay: nextProps.overview,
         			         posterPalette: nextProps.posterPalette 
         			      })
     }
@@ -24,15 +24,12 @@ export default class CarouselDisplay extends React.Component {
   componentDidMount(){
   }
   _changeDisplayTo(display){
-  	console.log(display)
+    this.setState({currentDisplay: display})
   }
 
   _getPosterStyle(palette){
     //Maps color palette to a CSS object
     var style = new Object
-    console.log("GET STYLE")
-    console.log(this)
-    console.log(palette)
     if (typeof palette != 'undefined'){
 
     var backgroundRGB = palette.darkMuted
@@ -47,7 +44,6 @@ export default class CarouselDisplay extends React.Component {
       color: "rgb("+ palette.lightVibrant.join(',') +")",
       textShadow: "2px 2px 0px " + style.color2
     }
-    console.log(style)
 
     }
     return style
@@ -56,16 +52,30 @@ export default class CarouselDisplay extends React.Component {
   render(){
   	var currentDisplay = this.state.currentDisplay
   	var style = this._getPosterStyle(this.state.posterPalette)
-  	console.log(style)
-  	console.log(this)
-  	return(
-  		<div className='carouselDisplay'>
-  		<MovieOverview header={this.state.playlistData.movieName} overview={this.state.playlistData.movieDesc} styleObject={style}/>
-  	  	<NapsterPlayer playlistData={this.state.playlistData}/>
-  	  	<button onClick={() => this._changeDisplayTo('overview')}>Overview</button>
-  	  	<button onClick={() => this._changeDisplayTo('player')}>Player</button>
-  		</div>
-  		//Three buttons to update display will go here
-  	)
+    var trackDisplay = this.state.currentDisplay == 'trackList' ? true : false
+    console.log(this)
+    if (currentDisplay == 'overview'){
+      return(
+        <div className='carouselDisplay'>
+          <MovieOverview header={this.state.playlistData.movieName} overview={this.state.playlistData.movieDesc} styleObject={style}/>
+          <TrackListComponent playlistData={this.state.playlistData} display={true}/>
+          <button onClick={() => this._changeDisplayTo('overview')}>Overview</button>
+          <button onClick={() => this._changeDisplayTo('trackList')}>Player</button>
+        </div>
+        //Three buttons to update display will go here
+      )
+    } else if (currentDisplay == 'trackList'){
+      return(
+        <div className='carouselDisplay'>
+          <TrackListComponent playlistData={this.state.playlistData} display={true}/>
+          <button onClick={() => this._changeDisplayTo('overview')}>Overview</button>
+          <button onClick={() => this._changeDisplayTo('trackList')}>Player</button>
+        </div>
+        //Three buttons to update display will go here
+      )
+    } else {
+      return(
+        <div></div>)
+    }
   }
 }

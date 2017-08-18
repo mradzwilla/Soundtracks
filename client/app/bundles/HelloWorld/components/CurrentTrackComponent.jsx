@@ -19,6 +19,7 @@ export default class CurrentTrackComponent extends React.Component {
                      albumTitle: this.props.playlistData.albumName,
                      overview: this.props.playlistData.movieDesc,
                      posterPath: this.props.playlistData.moviePoster,
+                     trackData: this.props.playlistData.trackData,
                      currentDisplay: 'overview'
                      //releaseDate: this.props.playlistData.release_date
                   };
@@ -32,7 +33,8 @@ export default class CurrentTrackComponent extends React.Component {
   	                   movieTitle: nextProps.playlistData.movieName,
   	                   albumTitle: nextProps.playlistData.albumName,
   	                   overview: nextProps.playlistData.movieDesc,
-  	                   posterPath: nextProps.playlistData.moviePoster, })
+  	                   posterPath: nextProps.playlistData.moviePoster,
+                       trackData: this.props.playlistData.trackData, })
       this._getPosterColors(nextProps.playlistData.moviePoster)
     }
   }

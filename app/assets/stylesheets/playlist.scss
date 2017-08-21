@@ -7,6 +7,7 @@
 }
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Dosis:400,700,800');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 // @font-face {
 //     font-family: HollywoodCapitalHills;
@@ -67,7 +68,7 @@ body{
 	$container-radius: 15px;
 
 	text-align: center;
-	height: 300px;
+	height: 420px;
 	max-width: 1100px;
 	margin: 0 auto;
 	background-size: cover;
@@ -113,6 +114,29 @@ body{
 }
 .carouselDisplay{
 	position: relative;
+
+	.albumCover{
+		display: inline-block;
+	}
+	.trackListContainer{
+		width: 280px;
+		vertical-align: top;
+		background-color: rgba(0,0,0,.6);
+		display: inline-block;
+		margin-left: 30px;
+		padding-left: 5%;
+		padding-right: 5%;
+		padding-top: 12px;
+		border-radius: 5px;
+		text-align: left;
+		overflow-x: scroll;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 16px;
+		line-height: 18px;
+
+		//170px is the image album size returned by Napster
+		height: 160px;
+	}
 }
 .playedTrackContainer{
 	max-width: 1100px;

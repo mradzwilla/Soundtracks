@@ -39,7 +39,7 @@ require 'uri'
 			playlistData: @playlistData,
 			offset: @pageOffset
 		}
-		puts @response
+		# puts @response
 		#Napster g.246 is the ID for the soundtrack genre
 		# @napster = HTTParty.get("http://api.napster.com/v2.2/search?apikey="+ENV['NAPSTER_KEY']+"&query="+@testMovie+"&type=album&per_type_limit=5&pretty=true")
 
@@ -60,8 +60,7 @@ def searchNapter(movies)
 		#Can update this to 2.2 when Napster releases update of player
 		# v2.2 uses 'query' while v2.1 uses q
 		# @napster = HTTParty.get("http://api.napster.com/v2.2/search?apikey="+ENV['NAPSTER_KEY']+"&query="+@titleURI+"&type=album&per_type_limit=3")
-		@napster = HTTParty.get("http://api.napster.com/v2.1/search?apikey="+ENV['NAPSTER_KEY']+"&q="+@titleURI+"&type=album&limit=3&pretty=true")
-		# puts @napster
+		@napster = HTTParty.get("http://api.napster.com/v2.1/search?apikey="+ENV['NAPSTER_KEY']+"&q="+@titleURI+"&type=album&limit=3")
 		if @napster["meta"]["returnedCount"] > 0
 			# @napster["search"]["data"]["albums"].each do |album| #v2.2 syntax
 			@napster["data"].each do |album|
@@ -71,10 +70,16 @@ def searchNapter(movies)
 					# if album["links"]["genres"]["ids"].include? "g.246"
 					# should probably change string to 'motion picture soundtrack'
 					if album["name"].downcase.include? 'soundtrack'
+					#if album["name"]
+						puts album
+ 
 						#Add other info that needs to be added here
 						@trackDataURL = album['links']['tracks']['href'] + "?apikey=" +ENV['NAPSTER_KEY']
 						@trackData = HTTParty.get(@trackDataURL)
-	
+						@albumImagesURL = album['links']['images']['href'] + "?apikey=" +ENV['NAPSTER_KEY']
+						@albumImages = HTTParty.get(@albumImagesURL)
+						# puts @albumImages
+
 						@response_object = { albumName: album["name"],
 											 albumID: album['id'],
 											 movieName: @movie['original_title'],
@@ -82,7 +87,8 @@ def searchNapter(movies)
 											 movieBackdrop: @movie['backdrop_path'],
 											 moviePoster: @movie['poster_path'],
 											 movieDesc: @movie['overview'],
-											 trackData: @trackData
+											 trackData: @trackData,
+											 albumImages: @albumImages
 											}
 						@response << @response_object
 					break

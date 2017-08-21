@@ -19,7 +19,7 @@ export default class CurrentTrackComponent extends React.Component {
                      albumTitle: this.props.playlistData.albumName,
                      overview: this.props.playlistData.movieDesc,
                      posterPath: this.props.playlistData.moviePoster,
-                     trackData: this.props.playlistData.trackData,
+                     trackData: this.props.playlistData.trackData.tracks,
                      currentDisplay: 'overview'
                      //releaseDate: this.props.playlistData.release_date
                   };
@@ -28,13 +28,18 @@ export default class CurrentTrackComponent extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.playlistData !== this.props.playlistData) {
+      var tracks = nextProps.playlistData.trackData.tracks
+      var index = 0
+      var trackID = tracks[index]['id']
+      this._playSong(trackID)
+
       this.setState({  playlistData: nextProps.playlistData,
         				       backdropPath: nextProps.playlistData.movieBackdrop,
   	                   movieTitle: nextProps.playlistData.movieName,
   	                   albumTitle: nextProps.playlistData.albumName,
   	                   overview: nextProps.playlistData.movieDesc,
   	                   posterPath: nextProps.playlistData.moviePoster,
-                       trackData: this.props.playlistData.trackData, })
+                       trackData: nextProps.playlistData.trackData.tracks, })
       this._getPosterColors(nextProps.playlistData.moviePoster)
     }
   }
@@ -42,11 +47,19 @@ export default class CurrentTrackComponent extends React.Component {
     this._getPosterColors(this.props.playlistData.moviePoster)
   }
   componentDidMount(){
+    var tracks = this.state.trackData
+    console.log(this)
+    var index = 0
+    var trackID = tracks[index]['id']
+    Napster.player.play(trackID);
   }
 
   componentDidUpdate(){
   }
 
+  componentWillUnmount(){
+    Napster.player.pause();
+  }
   _getPosterColors(posterPath){
     var poster = 'https://image.tmdb.org/t/p/original/' + posterPath
     var self = this
@@ -63,6 +76,9 @@ export default class CurrentTrackComponent extends React.Component {
     })
   }
 
+  _playSong(trackID){
+    Napster.player.play(trackID);
+  }
 //<img className="poster" src={poster}/>
 
   render(){

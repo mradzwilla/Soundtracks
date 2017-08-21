@@ -30,18 +30,22 @@ export default class NapsterPlayer extends React.Component {
     };
 
 	componentWillReceiveProps(nextProps){
-	    // if (nextProps.playlistData !== this.props.playlistData) {
-	    //   	this.setState({  albumID: nextProps.playlistData.albumID,
-	    //   					 tracks: []
-	    //   	})
-	    // }
+		if (nextProps.trackID == this.state.trackID){
+			return false
+		}else{
+			return true
+		}
 	}
 
-	// shouldComponentUpdate(nextProps){
-	// 	if (nextProps.trackID != this.state.trackID){
-	// 		return true
-	// 	}
-	// }
+	shouldComponentUpdate(nextProps, nextState){
+		console.log(nextProps)
+		console.log(this)
+		// if (nextProps.trackID == this.state.trackID){
+		// 	return false
+		// }else{
+		// 	return true
+		// }
+	}
 
 	componentDidUpdate(prevProps, prevState){
 		// console.log(this.state.albumID)

@@ -18,13 +18,12 @@ export default class TrackListComponent extends React.Component {
 		console.log("Track LIST")
 		console.log(props)
     	this.state = {albumID: this.props.playlistData.albumID,
-    				  albumName: this.props.playlistData.albumName,
-    				  albumImage: this.props.playlistData.albumImages.images[0]['url'],
     				  tracks: this.props.playlistData.trackData.tracks,
     				  currentIndex: randomIndex
     				}
     	this.render.bind(this)
     	this._renderItem.bind(this)
+    	this._playSong.bind(this)
 	};
 
 	componentWillMount(){
@@ -37,13 +36,13 @@ export default class TrackListComponent extends React.Component {
 		// this._playSong(trackID)
     };
 
-	componentWillReceiveProps(nextProps){
-	    if (nextProps.playlistData !== this.props.playlistData) {
-	      	this.setState({  albumID: nextProps.playlistData.albumID,
-	      					 tracks: nextProps.playlistData.trackData
-	      	})
-	    }
-	}
+	// componentWillReceiveProps(nextProps){
+	//     if (nextProps.playlistData !== this.props.playlistData) {
+	//       	this.setState({  albumID: nextProps.playlistData.albumID,
+	//       					 tracks: nextProps.playlistData.trackData
+	//       	})
+	//     }
+	// }
 
 	componentDidUpdate(prevProps, prevState){
 		if (this.state.albumID != prevState.albumID){
@@ -51,15 +50,20 @@ export default class TrackListComponent extends React.Component {
 		}
 	}
 
-    // _playSong(songID){
-    //     Napster.player.play(songID);
-    // };
+	componentWillUnmount(){
+		//Add function to this to add data 
+	}
+
+    _playSong(songID){
+        Napster.player.play(songID);
+    };
 
     _randomIndex(trackArr){
 		return Math.floor(Math.random()*trackArr.length)
     }
     _renderItem(index, key) {
-    	return <div className="trackItem" style={this.props.styleObject.trackList} key={key}>{this.state.tracks[index].name}</div>;
+    	var trackNumber = index + 1
+    	return <div className="trackItem" style={this.props.styleObject.trackList} key={key} onClick={() => {this._playSong(this.state.tracks[index].id)}}>{trackNumber + ": " +this.state.tracks[index].name}</div>;
   	}
 
 	render(){

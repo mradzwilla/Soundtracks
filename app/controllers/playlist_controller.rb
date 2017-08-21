@@ -9,10 +9,6 @@ require 'uri'
 		#4. Build JSON which contain all of the napster and TMDB data
 		#5. Return JSON to React which will render the view
 
-		#TO-DO:
-		# Iterate through movie responses with Napster function to see if album exists
-		# If yes, add it to array
-
 		@genreID = params['genre']
 		#API will break if pageOffset starts at 0. Fix this eventually
 		@pageOffset = params['offset'] ? params['offset'].to_i : rand(0..10)
@@ -25,7 +21,7 @@ require 'uri'
 		#API will break if page offset param is 0
 		@pageOffsetURL = (@pageOffset == 0 || !@pageOffset) ? "" : "&page=" + @pageOffset.to_s
 
-  		@TMDB_url = 'https://api.themoviedb.org/3/discover/movie?api_key='+ENV['TMDB_KEY']+'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false'+@pageOffsetURL.to_s+'&with_genres='+@genreID
+  		@TMDB_url = "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['TMDB_KEY']}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false#{@pageOffsetURL.to_s}&with_genres=#{@genreID}"
   		@movie_response = HTTParty.get(@TMDB_url)
 
   		@playlistData.push(*searchNapter(@movie_response))
@@ -57,7 +53,7 @@ def searchNapter(movies)
 
 		@title = movie['title']
 		@titleURI = URI.encode(@title)
-		#Can update this to 2.2 when Napster releases update of player
+		# Can update this to 2.2 when Napster releases update of player
 		# v2.2 uses 'query' while v2.1 uses q
 		# @napster = HTTParty.get("http://api.napster.com/v2.2/search?apikey="+ENV['NAPSTER_KEY']+"&query="+@titleURI+"&type=album&per_type_limit=3")
 		@napster = HTTParty.get("http://api.napster.com/v2.1/search?apikey="+ENV['NAPSTER_KEY']+"&q="+@titleURI+"&type=album&limit=3")
@@ -71,15 +67,17 @@ def searchNapter(movies)
 					# should probably change string to 'motion picture soundtrack'
 					if album["name"].downcase.include? 'soundtrack'
 					#if album["name"]
-						puts album
  
 						#Add other info that needs to be added here
 						@trackDataURL = album['links']['tracks']['href'] + "?apikey=" +ENV['NAPSTER_KEY']
 						@trackData = HTTParty.get(@trackDataURL)
 						@albumImagesURL = album['links']['images']['href'] + "?apikey=" +ENV['NAPSTER_KEY']
 						@albumImages = HTTParty.get(@albumImagesURL)
-						# puts @albumImages
-
+						@movieID = @movie['id']
+						@creditsURL = "https://api.themoviedb.org/3/movie/#{@movieID}'/credits?api_key=#{ENV['TMDB_KEY']}"
+						puts @creditsURL
+						@creditsInfo = HTTParty.get(@creditsURL)
+						puts @creditsInfo
 						@response_object = { albumName: album["name"],
 											 albumID: album['id'],
 											 movieName: @movie['original_title'],
@@ -88,7 +86,8 @@ def searchNapter(movies)
 											 moviePoster: @movie['poster_path'],
 											 movieDesc: @movie['overview'],
 											 trackData: @trackData,
-											 albumImages: @albumImages
+											 albumImages: @albumImages,
+											 creditsInfo: @creditsInfo['cast']
 											}
 						@response << @response_object
 					break

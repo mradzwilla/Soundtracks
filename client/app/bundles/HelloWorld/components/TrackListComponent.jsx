@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 import axios from 'axios';
 import 'napster';
 import ReactList from 'react-list';
-import NapsterPlayer from './NapsterPlayer';
+//import NapsterPlayer from './NapsterPlayer';
+import PlayerControlsComponent from './PlayerControlsComponent'
 
 //This component will call napster and generate and store all playlist information in a scrollable view
 
@@ -24,6 +25,7 @@ export default class TrackListComponent extends React.Component {
     	this.render.bind(this)
     	this._renderItem.bind(this)
     	this._playSong.bind(this)
+    	this._setNewTrackState.bind(this)
 	};
 
 	componentWillMount(){
@@ -58,12 +60,37 @@ export default class TrackListComponent extends React.Component {
         Napster.player.play(songID);
     };
 
+    _setNewTrackState(index){
+    	//Handles all state/UI changes needed when a new track is displayed
+    	var newTrack = this.state.tracks[index]
+    	console.log('NEXT TRACK')
+    	console.log(newTrack)
+		this._playSong(newTrack.id)
+		this.setState({currentIndex: index})
+    }
     _randomIndex(trackArr){
 		return Math.floor(Math.random()*trackArr.length)
     }
     _renderItem(index, key) {
     	var trackNumber = index + 1
-    	return <div className="trackItem" style={this.props.styleObject.trackList} key={key} onClick={() => {this._playSong(this.state.tracks[index].id)}}>{trackNumber + ": " +this.state.tracks[index].name}</div>;
+    	var isSelected = (index == this.state.currentIndex)
+    	var styleObject = this.props.styleObject
+    	var style = styleObject.trackList
+    	var selectedStyle = {
+    		color: style.color,
+    		backgroundColor: styleObject.selectedTrack.backgroundColor
+    	}
+    	// if (index == this.state.currentIndex) {
+    	// 	style.backgroundColor = styleObject.selectedTrack.backgroundColor
+    	// }
+    	console.log((index == this.state.currentIndex))
+    	console.log(index)
+    	console.log(this.state.currentIndex)
+    	return <div className={"trackItem "+ (isSelected ? 'currentTrack' : '')}
+    				style={(index == this.state.currentIndex ? selectedStyle : style)} 
+    				key={key} 
+    				onClick={() => {this._setNewTrackState(index)}}>{trackNumber + ": " +this.state.tracks[index].name}
+    			</div>;
   	}
 
 	render(){
@@ -84,6 +111,7 @@ export default class TrackListComponent extends React.Component {
 		            type='uniform'
 		          />
 		        </div>
+		        <PlayerControlsComponent/>
 		        </div>
 	        )
 	}

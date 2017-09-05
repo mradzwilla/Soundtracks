@@ -54,6 +54,9 @@ export default class CarouselDisplay extends React.Component {
     style['albumCover'] = {
       boxShadow: "-2px 2px 10px " + style.color2
     }
+    style['selectedTrack'] = {
+      backgroundColor: "rgba("+ palette.darkVibrant.join(',') +",.7)"
+    }
 
     }
     return style

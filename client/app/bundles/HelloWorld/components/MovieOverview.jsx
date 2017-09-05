@@ -16,7 +16,6 @@ export default class MovieOverview extends React.Component {
                   })
   }
   render(){
-    console.log(this)
   	return(
   		<div>
         <h1 className="movieTitle" style={this.state.style.header}>{this.state.header}</h1>
